@@ -102,34 +102,7 @@ pipeline {
                 }
             }
         }
-
-        stage('Build package') {
-            when {
-                expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
-            steps {
-                sh  ''' source activate ${BUILD_TAG}
-                        python setup.py bdist_wheel
-                    '''
-            }
-            post {
-                always {
-                    // Archive unit tests for the future
-                    archiveArtifacts allowEmptyArchive: true, artifacts: 'dist/*whl', fingerprint: true
-                }
-            }
-        }
-
-        // stage("Deploy to PyPI") {
-        //     steps {
-        //         sh """twine upload dist/*
-        //         """
-        //     }
-        // }
     }
-
     post {
         always {
             sh 'conda remove --yes -n ${BUILD_TAG} --all'
