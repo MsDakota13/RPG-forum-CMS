@@ -26,6 +26,8 @@ pipeline {
 
         stage('Build environment') {
             steps {
+			    echo "Making sure there is no virtualenv"
+				sh 'conda remove --yes -n ${BUILD_TAG} --all'
                 echo "Building virtualenv"
                 sh  ''' conda create --yes -n ${BUILD_TAG} python
                         source activate ${BUILD_TAG}
