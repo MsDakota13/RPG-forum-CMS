@@ -38,11 +38,6 @@ pipeline {
 
         stage('Static code metrics') {
             steps {
-		echo "pip freeze output test"
-		sh '''
-		        source activate ${BUILD_TAG}
-			pip freeze
-	           '''
                 echo "Raw metrics"
                 sh  ''' source activate ${BUILD_TAG}
                         radon raw --json core > raw_report.json
@@ -51,6 +46,7 @@ pipeline {
                     '''
                 echo "Test coverage"
                 sh  ''' source activate ${BUILD_TAG}
+		        pip freeze
                         coverage run core/main.py
                         python -m coverage xml -o reports/coverage.xml
                     '''
