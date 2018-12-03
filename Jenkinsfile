@@ -39,7 +39,10 @@ pipeline {
         stage('Static code metrics') {
             steps {
 		echo "pip freeze output test"
-		sh 'pip freeze'
+		sh '''
+		        source activate ${BUILD_TAG}
+			pip freeze
+	           '''
                 echo "Raw metrics"
                 sh  ''' source activate ${BUILD_TAG}
                         radon raw --json core > raw_report.json
