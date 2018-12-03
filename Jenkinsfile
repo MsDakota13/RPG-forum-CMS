@@ -44,7 +44,7 @@ pipeline {
                     '''
                 echo "Test coverage"
                 sh  ''' source activate ${BUILD_TAG}
-                        coverage run core/main.py 1 1 2 3
+                        coverage run core/main.py
                         python -m coverage xml -o reports/coverage.xml
                     '''
                 echo "Style check"
