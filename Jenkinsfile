@@ -32,6 +32,7 @@ pipeline {
                 sh  ''' conda create --yes -n ${BUILD_TAG} python
                         source activate ${BUILD_TAG}
                         pip install -r requirements/dev.txt
+						conda install flask
                     '''
             }
         }
