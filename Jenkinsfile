@@ -32,8 +32,12 @@ pipeline {
                 sh  ''' conda create --yes -n ${BUILD_TAG} python
                         source activate ${BUILD_TAG}
                         pip install -r requirements/dev.txt
-						conda install flask
                     '''
+                // only include packages that are needed by conda but do not properly get recognized
+                echo "Install conda packages"
+                sh ''' 
+                        conda install flask -y
+                   '''
             }
         }
 
@@ -47,7 +51,7 @@ pipeline {
                     '''
                 echo "Test coverage"
                 sh  ''' source activate ${BUILD_TAG}
-		        pip freeze
+                pip freeze
                         coverage run core/main.py
                         python -m coverage xml -o reports/coverage.xml
                     '''
