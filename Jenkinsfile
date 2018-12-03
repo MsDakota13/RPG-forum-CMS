@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        pollSCM('*/5 * * * 1-5')
+        pollSCM('*/15 * * * *')
     }
 
     options {
@@ -69,8 +69,6 @@ pipeline {
             }
         }
 
-
-
         stage('Unit tests') {
             steps {
                 sh  ''' source activate ${BUILD_TAG}
@@ -101,10 +99,21 @@ pipeline {
                 }
             }
         }
+
+        stage('Clean up environment') {
+            steps {
+                echo ('Cleaning up enviroment')
+            }
+            post {
+                always {
+                    sh 'conda remove --yes -n ${BUILD_TAG} --all'
+                }
+            }
+        }
     }
     post {
         always {
-            sh 'conda remove --yes -n ${BUILD_TAG} --all'
+            // sh 'conda remove --yes -n ${BUILD_TAG} --all'
         }
         failure {
             emailext (
