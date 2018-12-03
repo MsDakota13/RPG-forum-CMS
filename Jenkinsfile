@@ -51,9 +51,8 @@ pipeline {
                     '''
                 echo "Test coverage"
                 sh  ''' source activate ${BUILD_TAG}
-                pip freeze
                         coverage run core/main.py
-                        python -m coverage xml -o reports/coverage.xml
+                        coverage xml -o reports/coverage.xml
                     '''
                 echo "Style check"
                 sh  ''' source activate ${BUILD_TAG}
