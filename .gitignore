@@ -105,3 +105,11 @@ venv.bak/
 
 # flaskenv
 .flaskenv
+
+# repo specific ignores
+config/config.ini
+core/app.db
+docs/
+migrations/
+reports/
+phinx/_build
