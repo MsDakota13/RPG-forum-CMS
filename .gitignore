@@ -108,7 +108,7 @@ venv.bak/
 
 # repo specific ignores
 config/config.ini
-core/app.db
+code/app.db
 docs/
 migrations/
 reports/
