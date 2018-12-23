@@ -112,4 +112,5 @@ core/app.db
 docs/
 migrations/
 reports/
-phinx/_build
+sphinx/_build
+logs
